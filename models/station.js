@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const stationSchema = new Schema({
-  Connections: Array,
+  Connections: Array, // TODO: add relation to Connections: https://mongoosejs.com/docs/populate.html
   Title: String,
   AddressLine1: String,
   Town: String,
