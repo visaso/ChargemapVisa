@@ -2,23 +2,11 @@
 const stationModel = require('../models/station');
 
 const station_list_get = async (req, res) => {
-  try {
-    const stations = await stationModel.find();
-    res.json(stations);
-  }
-  catch (e) {
-    res.status(400).json({message: e.message});
-  }
+  res.send('With this endpoint you can get stations');
 };
 
 const station_get = async (req, res) => {
-  try {
-    const stations = await stationModel.findById(req.params.id);
-    res.json(stations);
-  }
-  catch (e) {
-    res.status(400).json({message: e.message});
-  }
+  res.send('With this endpoint you can get one station');
 };
 
 const station_post = (req, res) => {
