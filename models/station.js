@@ -10,7 +10,7 @@ const stationSchema = new Schema({
   Town: String,
   StateOrProvince: String,
   Postcode: String,
-  Connections: Array,
+  Connections: [{type: Schema.Types.ObjectId, ref: 'Connection'}],
   Location: {
     type: {
       type: String,
@@ -26,25 +26,4 @@ const stationSchema = new Schema({
 
 module.exports = mongoose.model('Station', stationSchema);
 
-/*
-
-const stationSchema = new Schema({
-  Title: String,
-  AddressLine1: String,
-  Town: String,
-  StateOrProvince: String,
-  Postcode: String,
-  Connections: [{type: Schema.Types.ObjectId, ref: 'Connection'}],
-  Location: {
-    type: {
-      type: String,
-      enum: ['Point'],
-      required: true,
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    }
-  }
-});
-*/
+// Connections: [{type: Schema.Types.ObjectId, ref: 'Connection'}],
