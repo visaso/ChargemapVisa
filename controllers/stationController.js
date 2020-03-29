@@ -83,22 +83,7 @@ const station_get_within = async (req, res) => {
   }
 };
 
-
 const station_post = async (req, res) => {
-  /*
-  const myStation = await stationModel.create({
-    Title: 'Testipaikka',
-    AddressLine1: 'Tie 12',
-    Town: 'Helsinki',
-    StateOrProvince: 'Uusimaa',
-    Postcode: '00160',
-    Connection: Array,
-    Location: {
-      type: 'Point',
-      coordinates: [13, 15]
-    }
-})
-*/
 console.log(req.body)
   const myStation = await stationModel.create({
     Title: req.body.title,
@@ -112,8 +97,6 @@ console.log(req.body)
       coordinates: JSON.parse(req.body.coordinates)
     }
   })
-
-  
   res.json(myStation.id);
 };
 
@@ -123,10 +106,16 @@ const station_delete_id = async (req, res) => {
   res.json(myStation.id);
 };
 
+const station_update_put = async (req, res) => {
+  const myStation = await stationModel.findByIdAndUpdate(req.body.id, req.body);
+  res.json(myStation);
+}
+
 module.exports = {
   station_list_get,
   station_get,
   station_post,
   station_get_within,
-  station_delete_id
+  station_delete_id,
+  station_update_put
 };

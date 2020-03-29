@@ -36,7 +36,6 @@ const user_post = (req, res) => {
 
 
 const getUserLogin = async (username) => {
-  console.log('HELLO');
   const user = await userModel.findOne({username: username});
   console.log(user);
   if (user.username === username) {
