@@ -85,6 +85,7 @@ const station_get_within = async (req, res) => {
 
 
 const station_post = async (req, res) => {
+  /*
   const myStation = await stationModel.create({
     Title: 'Testipaikka',
     AddressLine1: 'Tie 12',
@@ -97,12 +98,28 @@ const station_post = async (req, res) => {
       coordinates: [13, 15]
     }
 })
+*/
+console.log(req.body)
+  const myStation = await stationModel.create({
+    Title: req.body.title,
+    AddressLine1: req.body.address,
+    Town: req.body.town,
+    StateOrProvince: req.body.state,
+    Postcode: req.body.postal,
+    Connection: Array,
+    Location: {
+      type: req.body.type,
+      coordinates: JSON.parse(req.body.coordinates)
+    }
+  })
+
+  
   res.json(myStation.id);
 };
 
 const station_delete_id = async (req, res) => {
   const myStation = await stationModel
-      .findById("5e7f2d4f44a757259476d9d2").remove();
+      .findById(req.body.id).remove();
   res.json(myStation.id);
 };
 
