@@ -80,38 +80,34 @@ app.get('/', function(req, res){
 
 
 db.on('connected', () => {
-console.log(process.env.NODE_ENV);
-  
+  console.log(process.env.NODE_ENV);
+    
   const https = require('https').createServer(options, app).listen(8000);
-  //https.createServer(options, app).listen(8000);
+    //https.createServer(options, app).listen(8000);
 
-const io = require('socket.io')(https);
+  const io = require('socket.io')(https);
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
+  io.on('connection', function(socket){
+    console.log('a user connected');
+    socket.on('disconnect', function(){
+      console.log('user disconnected');
+    });
+    socket.on('chat message', function(msg){
+      io.emit('chat message', msg);
+    });
   });
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-});
 
-if (process.env.NODE_ENV === 'development') {
-  http.createServer((req, res) => {
-    res.writeHead(301, { 'Location': 'https://wisardster.jelastic.metropolia.fi' + req.url });
-    res.end();
-}).listen(3000);
-} else {
-  http.createServer((req, res) => {
-    res.writeHead(301, { 'Location': 'https://wisardster.jelastic.metropolia.fi' + req.url });
-    res.end();
-}).listen(3000);
-}
-
-
-
-
+  if (process.env.NODE_ENV === 'development') {
+    http.createServer((req, res) => {
+      res.writeHead(301, { 'Location': 'https://localhost:8000' + req.url });
+      res.end();
+  }).listen(3000);
+  } else if (process.env.NODE_ENV === 'production') {
+    http.createServer((req, res) => {
+      res.writeHead(301, { 'Location': 'https://wisardster.jelastic.metropolia.fi' + req.url });
+      res.end();
+  }).listen(3000);
+  }
 });
 
 
