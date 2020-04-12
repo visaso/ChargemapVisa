@@ -8,6 +8,7 @@ const cors = require('cors')
 const http = require('http');
 //const http = require('http').createServer(app);
 //const https = require('https');
+let options = {};
 
 
 const fs = require('fs');
@@ -19,13 +20,17 @@ const passport = require('./utils/pass.js')
 const graphqlHTTP = require('express-graphql');
 const MyGraphQLSchema = require('./schema/schema');
 
-const sslkey = fs.readFileSync('./ssl-key.pem');
-const sslcert = fs.readFileSync('./ssl-cert.pem')
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+if (process.env.NODE_ENV === 'development') {
+  const sslkey = fs.readFileSync('./ssl-key.pem');
+  const sslcert = fs.readFileSync('./ssl-cert.pem')
 
-const options = {
+  options = {
       key: sslkey,
       cert: sslcert
-};
+  };
+  
+}
 
 const helmet = require('helmet');
 app.use(helmet({
@@ -75,6 +80,8 @@ app.get('/', function(req, res){
 
 
 db.on('connected', () => {
+
+  
   const https = require('https').createServer(options, app).listen(8000);
   //https.createServer(options, app).listen(8000);
 
@@ -89,8 +96,6 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 });
-
-
 
 
 http.createServer((req, res) => {
