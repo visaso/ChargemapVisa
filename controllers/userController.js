@@ -2,6 +2,11 @@
 'use strict';
 const userModel = require('../models/userModel');
 
+const bcrypt = require('bcrypt');
+
+const saltRound = 12; //okayish in 2020
+
+
 const user_list_get = async (req, res) => {
   try {
     console.log('Waiting for users')
@@ -44,11 +49,18 @@ const getUserLogin = async (username) => {
     console.log('Not logged in');
   }
 };
+
+const create_user = async (req, res) => {
+  const hash = await bcrypt.hash(req.body.password, saltRound);
+  const myUser = await userModel.create({ username: req.body.username, password: hash })
+    res.json(myUser.id);
+}
    
 module.exports = {
   user_list_get,
   user_get,
   log_form,
   user_post,
-  getUserLogin
+  getUserLogin,
+  create_user
 };

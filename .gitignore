@@ -8,6 +8,10 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+ssl-cert.pem
+ssl-key.pem
+certrequest.csr
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
