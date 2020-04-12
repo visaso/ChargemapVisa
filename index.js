@@ -43,6 +43,8 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
+const https = require('https').createServer(options, app).listen(8000);
+
 const helmet = require('helmet');
 app.use(helmet({
   ieNoOpen: false
@@ -92,7 +94,7 @@ app.get('/', function(req, res){
 
 db.on('connected', () => {
 
-  const https = require('https').createServer(options, app).listen(8000);
+
 
   const io = require('socket.io')(https);
 
