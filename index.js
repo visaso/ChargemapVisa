@@ -80,7 +80,7 @@ app.get('/', function(req, res){
 
 
 db.on('connected', () => {
-
+console.log(process.env.NODE_ENV);
   
   const https = require('https').createServer(options, app).listen(8000);
   //https.createServer(options, app).listen(8000);
