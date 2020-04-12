@@ -104,7 +104,7 @@ http.createServer((req, res) => {
 }).listen(3000);
 } else {
   http.createServer((req, res) => {
-    res.writeHead(301, { 'Location': 'https://wisardster.jelastic.metropolia.fi' + req.url });
+    res.writeHead(404, { 'Location': 'https://wisardster.jelastic.metropolia.fi' + req.url });
     res.end();
 }).listen(3000);
 }
