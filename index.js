@@ -29,6 +29,14 @@ if (process.env.NODE_ENV === 'development') {
       key: sslkey,
       cert: sslcert
   };
+
+  app.use((req, res, next) => {
+    if (req.secure) {
+      next();
+    } else {
+      res.redirect("https:// " + req.headers.host + req.url);
+    }
+  })
   
 }
 
@@ -98,15 +106,10 @@ io.on('connection', function(socket){
 });
 
 if (process.env.NODE_ENV === 'development') {
-http.createServer((req, res) => {
-      res.writeHead(301, { 'Location': 'https://localhost:8000' + req.url });
-      res.end();
-}).listen(3000);
-} else {
   http.createServer((req, res) => {
-    res.writeHead(404, { 'Location': 'https://wisardster.jelastic.metropolia.fi' + req.url });
-    res.end();
-}).listen(3000);
+        res.writeHead(301, { 'Location': 'https://localhost:8000' + req.url });
+        res.end();
+  }).listen(3000);
 }
 
 
