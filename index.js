@@ -103,7 +103,10 @@ if (process.env.NODE_ENV === 'development') {
     res.end();
 }).listen(3000);
 } else {
-  res.redirect('https://' + req.headers.host + req.url);
+  http.createServer((req, res) => {
+    res.redirect('https://' + req.headers.host + req.url);
+    res.end();
+}).listen(3000);
 }
 
 });
