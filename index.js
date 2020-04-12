@@ -30,6 +30,9 @@ if (process.env.NODE_ENV === 'development') {
       cert: sslcert
   };
 
+  
+} else {
+  
   app.use((req, res, next) => {
     if (req.secure) {
       next();
@@ -37,7 +40,6 @@ if (process.env.NODE_ENV === 'development') {
       res.redirect("https:// " + req.headers.host + req.url);
     }
   })
-  
 }
 
 const helmet = require('helmet');
