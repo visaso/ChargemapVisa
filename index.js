@@ -98,19 +98,15 @@ io.on('connection', function(socket){
 });
 
 if (process.env.NODE_ENV === 'development') {
-
-} else {
-  
-}
-http.createServer((req, res) => {
-      res.writeHead(301, { 'Location': 'https://wisardster.jelastic.metropolia.fi' + req.url });
-      res.end();
+  http.createServer((req, res) => {
+    res.writeHead(301, { 'Location': 'https://localhost:8000' + req.url });
+    res.end();
 }).listen(3000);
-
-
+} else {
+  res.redirect('https://' + req.headers.host + req.url);
+}
 
 });
-
 
 
 
