@@ -108,7 +108,7 @@ db.on('connected', () => {
     });
   });
 
-  /*
+  
 
   if (process.env.NODE_ENV === 'production') {
     http.createServer((req, res) => {
@@ -121,7 +121,7 @@ db.on('connected', () => {
       res.end();
   }).listen(3000);
   }
-  */
+  
 });
 
 
