@@ -32,6 +32,7 @@ if (process.env.NODE_ENV === 'development') {
 
   
 } else {
+  app.enable('trust proxy');
   
   app.use((req, res, next) => {
     if (req.secure) {
@@ -48,7 +49,7 @@ app.use(helmet({
 }));
 
 
-app.enable('trust proxy');
+
 
 app.use(cors())
 
