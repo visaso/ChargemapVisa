@@ -113,21 +113,13 @@ if (process.env.NODE_ENV === 'development') {
         res.writeHead(301, { 'Location': 'https://localhost:8000' + req.url });
         res.end();
   }).listen(3000);
+} else {
+  http.createServer((req, res) => {
+    res.writeHead(301, { 'Location': 'https://wisardster.jelastic.metropolia.fi' + req.url });
+    res.end();
+}).listen(3000);
 }
 
-
-
-
-});
-
-app.use ((req, res, next) => {
-  if (req.secure) {
-    // request was via https, so do no special handling
-    next();
-  } else {
-    // request was via http, so redirect to https
-    res.redirect('https://' + req.headers.host + req.url);
-  }
 });
 
 
